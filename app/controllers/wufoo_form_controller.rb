@@ -40,7 +40,7 @@ class WufooFormController < ApplicationController
 
     http.start() {|http|
           req = Net::HTTP::Get.new("/api/v3/forms/#{@wf.form_name}/entries.json?system=true")
-          req.basic_auth 'L98A-C1CS-QF74-BJN6', 'password'
+          req.basic_auth @wf.api_key, 'password'
           @response = http.request(req)
           @json = JSON.parse(@response.body)
         }

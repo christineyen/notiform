@@ -1,0 +1,27 @@
+body, input, textarea {
+  margin: 5px 10px 20px 10px;
+  font-family: 'Helvetica Neue',Helvetica,Arial,Tahoma,sans-serif;
+  font-size: 10pt;
+}
+
+textarea {
+  padding: 10px;
+}
+
+ul.create_wufoo {
+  float: left;
+}
+
+ul.create_wufoo li {
+  list-style-type: none;
+  display: block;
+}
+
+ul.create_wufoo li label {
+  margin: 0px 10px;
+  display: block;
+}
+
+ul.right {
+  left: 200px;
+}

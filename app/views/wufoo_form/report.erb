@@ -1,6 +1,9 @@
 here we list the submitted entries, a link back to the full form + results (maybe?), and surface buttons for users who haven't submitted the form yet.
 <br />
 
+fetch the entries yourself via curl: <br />
+curl -u <%= @wf.api_key %>:fakepassword "https://<%= @wf.subdomain %>.wufoo.com/api/v3/forms/<%= @wf.form_name %>/entries.json?system=true"
+
 <br /><br />
 
 name: <%= @json['Entries'] %>

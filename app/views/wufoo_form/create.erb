@@ -1,7 +1,8 @@
-create
+First, please create a wufoo form. Make the FIRST FIELD a hidden string field for the TOKEN
 
-<ul>
-  <% form_for :wufoo_form, @wufoo_form do |f| %>
+
+<% form_for :wufoo_form, @wufoo_form do |f| %>
+  <ul class="create_wufoo">
     <li>
       <label id="subdomain"> Subdomain </label>
       <span>
@@ -20,10 +21,12 @@ create
         <%= f.text_field :api_key %>
       </span>
     </li>
+  </ul>
+  <ul class="create_wufoo right">
     <li>
       <label id="recipient_emails"> Recipient Emails </label>
       <span>
-        <%= f.text_area :recipient_emails %>
+        <%= f.text_area :recipient_emails, :cols => 50, :rows => 6 %>
       </span>
     </li>
     <li>
