@@ -1,0 +1,33 @@
+create
+
+<ul>
+  <% form_for :wufoo_form, @wufoo_form do |f| %>
+    <li>
+      <label id="subdomain"> Subdomain </label>
+      <span>
+        <%= f.text_field :subdomain %>
+      </span>
+    </li>
+    <li>
+      <label id="form_name"> Form name </label>
+      <span>
+        <%= f.text_field :form_name %>
+      </span>
+    </li>
+    <li>
+      <label id="api_key"> API Key </label>
+      <span>
+        <%= f.text_field :api_key %>
+      </span>
+    </li>
+    <li>
+      <label id="recipient_emails"> Recipient Emails </label>
+      <span>
+        <%= f.text_area :recipient_emails %>
+      </span>
+    </li>
+    <li>
+      <%= submit_tag 'create' %>
+    </li>
+  <% end %>
+</ul>
