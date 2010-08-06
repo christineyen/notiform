@@ -1,36 +1,41 @@
-First, please create a wufoo form. Make the FIRST FIELD a hidden string field for the TOKEN
+<% content_for :header do %>
+  CREATE YOUR FORM, FOOL
+<% end %>
+
+<div class="step-container">
+  <div class="step-dropcap">Step 1</div>
+  <div class="step-content">Create a Wufoo form to track. Make sure to make the <b>first field</b> a  string field only visible by the Administrator. This will be used for our tracking token.</div>
+</div>
+
+<div class="step-container">
+  <div class="step-dropcap">Step 2</div>
+  <div class="step-content">Capture the API Key and the form name, and hand it over to us.</div>
+</div>
 
 
 <% form_for :wufoo_form, @wufoo_form do |f| %>
-  <ul class="create_wufoo">
-    <li>
-      <label id="subdomain"> Subdomain </label>
-      <span>
-        <%= f.text_field :subdomain %>
-      </span>
-    </li>
-    <li>
-      <label id="form_name"> Form name </label>
-      <span>
-        <%= f.text_field :form_name %>
-      </span>
-    </li>
-    <li>
-      <label id="api_key"> API Key </label>
-      <span>
-        <%= f.text_field :api_key %>
-      </span>
-    </li>
-  </ul>
-  <ul class="create_wufoo right">
-    <li>
-      <label id="recipient_emails"> Recipient Emails </label>
-      <span>
-        <%= f.text_area :recipient_emails, :cols => 50, :rows => 6 %>
-      </span>
-    </li>
-    <li>
+  <table border=0 cellpadding=0 cellspacing=0>
+    <tr><td>
+      <div class="field">
+        Subdomain<br />
+        <%= f.text_field :subdomain, :size => 25 %>
+      </div>
+      <div class="field">
+        Form name<br />
+        <%= f.text_field :form_name, :size => 25 %>
+      </div>
+      <div class="field">
+        API Key<br />
+        <%= f.text_field :api_key, :size => 25 %>
+      </div>
+    </td><td>
+      <div class="field">
+        Recipient Emails<br />
+        <%= f.text_area :recipient_emails, :cols => 30, :rows => 6 %>
+      </div>
       <%= submit_tag 'create' %>
-    </li>
-  <% end %>
-</ul>
+    </td></tr>
+  </table>
+<% end %>
+
+Thanks!

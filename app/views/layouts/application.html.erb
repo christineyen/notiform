@@ -4,6 +4,13 @@
     <%= stylesheet_link_tag 'notiform' %>
   </head>
   <body>
-    <%= yield %>
+    <div id="wrapper">
+      <div id="header">
+        <%= yield :header %>
+      </div>
+      <div id="content">
+        <%= yield %>
+      </div>
+    </div>
   </body>
 </html>
