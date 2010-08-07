@@ -6,4 +6,8 @@ curl -u <%= @wf.api_key %>:fakepassword "https://<%= @wf.subdomain %>.wufoo.com/
 
 <br /><br />
 
-name: <%= @json['Entries'] %>
+Entries: <br />
+<% @recipients.each do |recipient| %>
+	<%= recipient.email %>, <%= recipient.token %>, <%= recipient.confirmed ? "YES" : "NO" %><br />
+<% end %>
+

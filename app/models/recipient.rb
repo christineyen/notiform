@@ -1,6 +1,7 @@
 class Recipient < ActiveRecord::Base
   belongs_to :wufoo_form
   before_create :generate_token
+  attr_accessor :confirmed
 
  private
   def generate_token

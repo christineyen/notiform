@@ -10,7 +10,14 @@ class WufooFormController < ApplicationController
     if request.post?
       recipient_emails = params[:wufoo_form].delete('recipient_emails') || []
 
-      wf = WufooForm.create(params[:wufoo_form])
+      wf = WufooForm.new(params[:wufoo_form])
+
+      json = get_json_for(wf, 'fields')
+      token_fields = json.select {|field| field['Title'].downcase == 'notiform token'}
+
+      wf.token_field_id = token_fields.first['ID']
+      wf.save!
+
       recipient_emails.split(',').each do |email|
         Recipient.create(:wufoo_form_id => wf.id, :email => email.strip)
       end
@@ -21,9 +28,11 @@ class WufooFormController < ApplicationController
   end
 
   def view
+    token = params[:token] || params[:id]
+
     if @wf = WufooForm.find_by_id(params[:id])
 
-    elsif @recipient = Recipient.find_by_token(params[:id])
+    elsif @recipient = Recipient.find_by_token(token)
       @wf = @recipient.wufoo_form
     else
       render :action => 'failure'
@@ -35,18 +44,34 @@ class WufooFormController < ApplicationController
       render :action => 'failure'
     end
 
-    http = Net::HTTP.new("#{@wf.subdomain}.wufoo.com", 443)
-    http.use_ssl = true
+    @recipients = @wf.recipients
 
-    http.start() {|http|
-          req = Net::HTTP::Get.new("/api/v3/forms/#{@wf.form_name}/entries.json?system=true")
-          req.basic_auth @wf.api_key, 'password'
-          @response = http.request(req)
-          @json = JSON.parse(@response.body)
-        }
+    # set 'confirmed' for each recipient for whom we've recieved an entry
+    recipient_map = @recipients.index_by(&:token)
+    json = get_json_for(@wf, 'entries')
+
+    json.each do |entry|
+			if received = recipient_map[entry[@wf.token_field_id]]
+				received.confirmed = true
+			end
+    end
   end
 
   def failure
   end
+
+ private
+
+	def get_json_for(wufoo_form, api_string)
+    http = Net::HTTP.new("#{wufoo_form.subdomain}.wufoo.com", 443)
+    http.use_ssl = true
+    http.start() {|http|
+          req = Net::HTTP::Get.new("/api/v3/forms/#{wufoo_form.form_name}/#{api_string}.json?system=true")
+          req.basic_auth wufoo_form.api_key, 'password'
+          response = http.request(req)
+          json = JSON.parse(response.body)
+          return json[api_string.camelcase]
+        }
+	end
 
 end

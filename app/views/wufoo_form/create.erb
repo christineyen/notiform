@@ -15,20 +15,20 @@
 
 <% form_for :wufoo_form, @wufoo_form do |f| %>
   <table border=0 cellpadding=0 cellspacing=0>
-    <tr><td>
+    <tr><td valign="top">
       <div class="field">
         Subdomain<br />
         <%= f.text_field :subdomain, :size => 25 %>
       </div>
       <div class="field">
-        Form name<br />
+        Form Hash<br />
         <%= f.text_field :form_name, :size => 25 %>
       </div>
       <div class="field">
         API Key<br />
         <%= f.text_field :api_key, :size => 25 %>
       </div>
-    </td><td>
+    </td><td valign="top">
       <div class="field">
         Recipient Emails<br />
         <%= f.text_area :recipient_emails, :cols => 30, :rows => 6 %>

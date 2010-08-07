@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100803064000) do
+ActiveRecord::Schema.define(:version => 20100807003502) do
 
   create_table "recipients", :force => true do |t|
     t.string   "email"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(:version => 20100803064000) do
     t.string   "api_key"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "token_field_id", :default => ""
   end
 
 end

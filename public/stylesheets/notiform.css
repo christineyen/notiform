@@ -43,6 +43,10 @@ form {
   border-bottom: 1px dotted black;
 }
 
+.step-container {
+	margin-bottom: 0.75em;
+}
+
 .step-dropcap {
   font-size: 2em;
   color: #444444;

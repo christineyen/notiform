@@ -3,7 +3,13 @@ WufooForm found. Please fill me out! <br />
 grabbing url: http://<%= @wf.subdomain %>.wufoo.com/forms/<%= @wf.form_name %>/
 
 
-<script type="text/javascript">var host = (("https:" == document.location.protocol) ? "https://secure." : "http://");document.write(unescape("%3Cscript src='" + host + "wufoo.com/scripts/embed/form.js' type='text/javascript'%3E%3C/script%3E"));</script>
+<script type="text/javascript">
+	var host = (("https:" == document.location.protocol) ?
+							"https://secure." :
+							"http://");document.write(unescape("%3Cscript src='" +
+									host +
+									"wufoo.com/scripts/embed/form.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
 
 <script type="text/javascript">
   var wf = new WufooForm();
@@ -12,8 +18,11 @@ grabbing url: http://<%= @wf.subdomain %>.wufoo.com/forms/<%= @wf.form_name %>/
     'formHash':'<%= @wf.form_name %>', 
     'autoResize':true,
 
-    // NOTE: This is the line we are adding to the default snippet.
-    'defaultValues':'field2=NAME-HERE&field3=EMAIL-HERE',
+		<% if @recipient
+			default_values = @wf.token_field_id + '=' + @recipient.token %>
+	    // NOTE: This is the line we are adding to the default snippet.
+	    'defaultValues':'<%= default_values %>',
+		<% end %>
 
     'height':'299'});
   wf.display();
