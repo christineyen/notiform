@@ -64,4 +64,19 @@ Rails::Initializer.run do |config|
 
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
+
+  config.action_mailer.default_url_options = { :host => 'christineyen.com' }
+
 end
+
+ActionMailer::Base.delivery_method = :smtp
+ActionMailer::Base.perform_deliveries = true
+ActionMailer::Base.smtp_settings = {
+  :address => 'localhost',
+  :port => 26,
+  :authentication => :login,
+  :user_name => 'notiform@christineyen.com',
+  :password => 'notify'
+}
+ActionMailer::Base.raise_delivery_errors = true
+

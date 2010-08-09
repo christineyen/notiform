@@ -8,6 +8,11 @@ curl -u <%= @wf.api_key %>:fakepassword "https://<%= @wf.subdomain %>.wufoo.com/
 
 Entries: <br />
 <% @recipients.each do |recipient| %>
-	<%= recipient.email %>, <%= recipient.token %>, <%= recipient.confirmed ? "YES" : "NO" %><br />
+	<%= recipient.email %>
+  <% if recipient.last_reminded_at && recipient.last_reminded_at > 2.days.ago %>
+    reminded very recently
+  <% elsif !recipient.confirmed %>
+    <a href="#" class="remind-link" data-id="<%= recipient.id %>">remind</a>
+  <% end %><br />
 <% end %>
 

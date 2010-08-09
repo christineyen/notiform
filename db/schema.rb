@@ -9,14 +9,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100807003502) do
+ActiveRecord::Schema.define(:version => 20100809082115) do
 
   create_table "recipients", :force => true do |t|
     t.string   "email"
     t.string   "token"
-    t.integer  "wufoo_form_id", :limit => 11
+    t.integer  "wufoo_form_id",    :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "last_reminded_at"
   end
 
   create_table "wufoo_forms", :force => true do |t|
