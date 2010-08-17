@@ -23,7 +23,7 @@ input, textarea {
   text-align: left;
 }
 
-#header {
+.header {
   background-color: #3F7696;
   padding: 1em;
   font-size: 0.8em;
@@ -32,7 +32,7 @@ input, textarea {
   color: #FFFFFF;
 }
 
-#content {
+.content {
   padding: 1em;
 }
 

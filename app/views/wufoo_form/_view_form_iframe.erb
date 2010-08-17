@@ -1,0 +1,9 @@
+<% default_values = ''
+if @recipient
+	default_values = 'def/' + @wf.token_field_id + '=' + @recipient.token
+end %>
+
+<iframe height="515" allowTransparency="true" frameborder="0" scrolling="no"
+  style="width:100%;border:none"
+  src="http://<%= @wf.subdomain %>.wufoo.com/embed/<%= @wf.form_name %>/<%= default_values %>">
+</iframe>

@@ -20,7 +20,7 @@
 </div>
 
 
-<% form_for :wufoo_form, @wufoo_form do |f| %>
+<% form_for :wufoo_form, @wufoo_form, :html => { :id => 'create_wufoo-form' } do |f| %>
   <table id="create" border=0 cellpadding=0 cellspacing=0>
     <tr><td valign="top">
       <div class="field">
@@ -40,7 +40,7 @@
         Recipient Emails<br />
         <%= f.text_area :recipient_emails, :cols => 30, :rows => 6 %>
       </div>
-      <%= submit_tag 'create' %>
+      <input type="button" id="create_wufoo-submit" value="create" />
     </td></tr>
   </table>
 <% end %>

@@ -8,6 +8,7 @@ $(document).ajaxSend(function(event, request, settings) {
     settings.data += (settings.data ? "&" : "") + "authenticity_token=" + encodeURIComponent(window.AUTH_TOKEN);
   });
 
+
 $(document).ready(function() {
   $('.remind-link').click(function() {
 
@@ -20,5 +21,34 @@ $(document).ready(function() {
     $.post('/notiform/recipients/remind/',
            { 'id': $(this).attr('data-id') },
            success, 'json');
+  });
+
+  $('#create_wufoo-form').submit(function() {
+    var success = function(submittedForm) {
+      return function(data) {
+        var wrapper = $(submittedForm).parent().parent();
+        $(submittedForm).parent().slideUp('slow', function() {
+          wrapper.append("<div class='header'>PREVIEW KINDA NOT REALLY</div>");
+          var subhead = wrapper.children().last();
+          subhead.slideDown('slow' , function() {
+            wrapper.append("<div class='content' style='display:none'></div>");
+            var newForm = wrapper.children().last();
+            newForm.html(data.html);
+            newForm.slideDown('slow');
+          });
+        });
+        return false;
+      }
+    }(this);
+
+    $.post(this.action, $(this).serialize(), success, 'json');
+    return false;
+  });
+
+  $('#create_wufoo-submit').click(function() {
+    var form = $(this).parents('form');
+
+    form.submit();
+    return false;
   });
 });

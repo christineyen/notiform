@@ -10,18 +10,28 @@ class WufooFormController < ApplicationController
     if request.post?
       recipient_emails = params[:wufoo_form].delete('recipient_emails') || []
 
-      wf = WufooForm.new(params[:wufoo_form])
+      @wf = WufooForm.new(params[:wufoo_form])
 
-      json = get_json_for(wf, 'fields')
+       begin
+        json = get_json_for(@wf, 'fields')
+       rescue  => e
+         return render :action => 'failure'
+       end
+
       token_fields = json.select {|field| field['Title'].downcase == 'notiform token'}
 
-      wf.token_field_id = token_fields.first['ID']
-      wf.save!
+      @wf.token_field_id = token_fields.first['ID']
+      @wf.save!
 
       recipient_emails.split(',').each do |email|
-        Recipient.create(:wufoo_form_id => wf.id, :email => email.strip)
+        Recipient.create(:wufoo_form_id => @wf.id, :email => email.strip)
       end
-      redirect_to :action => 'view', :id => wf.id
+
+      respond_to do |format|
+        format.json { render :json => {
+            :html => render_to_string(:partial => 'view_form_iframe') },
+            :status => :ok }
+      end
     end
 
     # else, return the empty form
