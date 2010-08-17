@@ -1,5 +1,5 @@
-
- $(document).ajaxSend(function(event, request, settings) {
+// hack to get rails' authenticity token passed correctly
+$(document).ajaxSend(function(event, request, settings) {
     if (typeof(window.AUTH_TOKEN) == "undefined") return;
     // IE6 fix for http://dev.jquery.com/ticket/3155
     if (settings.type == 'GET' || settings.type == 'get') return;
@@ -11,14 +11,14 @@
 $(document).ready(function() {
   $('.remind-link').click(function() {
 
-    var callback = function(clickedOn) {
+    var success = function(clickedOn) {
       return function(data) {
-        clickedOn.hide();
+        clickedOn.replaceWith(data.html);
       }
     }($(this));
 
     $.post('/notiform/recipients/remind/',
            { 'id': $(this).attr('data-id') },
-           callback);
+           success, 'json');
   });
 });

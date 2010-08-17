@@ -7,7 +7,7 @@ class Recipient < ActiveRecord::Base
   def remind_recipient
     puts "\nDELIVER REMINDER....\n\n"
     # RecipientMailer.deliver_remind(self)
-    self.update_attribute(:last_reminded_at, Time.now)
+    # self.update_attribute(:last_reminded_at, Time.now)
   end
 
  private
