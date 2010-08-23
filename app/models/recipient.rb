@@ -15,7 +15,7 @@ class Recipient < ActiveRecord::Base
     self.token = rand(36**8).to_s(36) if self.new_record? and self.token.nil?
   end
 
-  def notify_recipient(recipient)
-    RecipientMailer.deliver_notify(recipient)
+  def notify_recipient
+    RecipientMailer.deliver_notify(self)
   end
 end
